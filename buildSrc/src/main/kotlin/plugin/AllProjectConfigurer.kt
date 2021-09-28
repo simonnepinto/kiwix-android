@@ -48,7 +48,7 @@ class AllProjectConfigurer {
   fun configureBaseExtension(target: Project, path: String) {
     target.configureExtension<BaseExtension> {
       setCompileSdkVersion(Config.compileSdk)
-      ndkVersion = "22.0.7026061"
+      ndkVersion = "21.4.7075529"
       defaultConfig {
         setMinSdkVersion(Config.minSdk)
         setTargetSdkVersion(Config.targetSdk)
@@ -141,7 +141,7 @@ class AllProjectConfigurer {
   fun configurePlugins(target: Project) {
     target.run {
       configureExtension<AndroidExtensionsExtension> { isExperimental = true }
-      configureExtension<JacocoPluginExtension> { toolVersion = "0.8.3" }
+      configureExtension<JacocoPluginExtension> { toolVersion = "0.8.7" }
       configureExtension<KtlintExtension> { android.set(true) }
       configureExtension<DetektExtension> {
         baseline = project.file("detekt_baseline.xml")

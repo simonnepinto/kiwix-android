@@ -755,8 +755,9 @@ public abstract class CoreReaderFragment extends BaseFragment
       }
       return webView;
     }
-  return null;
+    return null;
   }
+
   @NotNull protected ToolbarScrollingKiwixWebView createWebView(AttributeSet attrs) {
     if (activityMainRoot != null) {
       return new ToolbarScrollingKiwixWebView(
@@ -1218,9 +1219,7 @@ public abstract class CoreReaderFragment extends BaseFragment
   private void handleIntentActions(Intent intent) {
     Log.d(TAG_KIWIX, "action" + getActivity().getIntent().getAction());
     if (intent.getAction() != null) {
-      if (zimReaderContainer.getId() != null) {
-        startIntentBasedOnAction(intent);
-      }
+      startIntentBasedOnAction(intent);
     }
   }
 
@@ -1228,6 +1227,7 @@ public abstract class CoreReaderFragment extends BaseFragment
     switch (intent.getAction()) {
       case Intent.ACTION_PROCESS_TEXT: {
         goToSearchWithText(intent);
+        intent.setAction(null); // see https://github.com/kiwix/kiwix-android/issues/2607
         break;
       }
       case CoreSearchWidget.TEXT_CLICKED:
@@ -1480,6 +1480,7 @@ public abstract class CoreReaderFragment extends BaseFragment
   @Override
   public void webViewProgressChanged(int progress) {
     if (checkNull(progressBar) && isAdded()) {
+      progressBar.setVisibility(View.VISIBLE);
       progressBar.show();
       progressBar.setProgress(progress);
       if (progress == 100) {
